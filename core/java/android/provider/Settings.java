@@ -2859,6 +2859,12 @@ public final class Settings {
         public static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
 
         /**
+         * Enable statusbar double tap gesture on to put device to sleep
+         * @hide
+         */
+        public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
