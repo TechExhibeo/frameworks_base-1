@@ -2233,4 +2233,7 @@
         config to 7. -->
     <integer name="config_deviceHardwareKeys">0</integer>
 
+    <!-- The list of components which should be automatically disabled. -->
+    <string-array name="config_disabledComponents" translatable="false">
+    </string-array>
 </resources>
