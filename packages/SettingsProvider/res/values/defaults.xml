@@ -211,4 +211,7 @@
     <!-- Default for Settings.Global.GUEST_USER_ENABLED -->
     <bool name="def_guest_user_enabled">true</bool>
 
+    <!-- Default for Settings.Secure.STATS_COLLECTION. -->
+    <bool name="def_cm_stats_collection">false</bool>
+
 </resources>
