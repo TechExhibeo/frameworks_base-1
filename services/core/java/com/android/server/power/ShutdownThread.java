@@ -149,10 +149,19 @@ public final class ShutdownThread extends Thread {
         }
 
         boolean showRebootOption = false;
-        String[] defaultActions = context.getResources().getStringArray(
-                com.android.internal.R.array.config_globalActionsList);
-        for (int i = 0; i < defaultActions.length; i++) {
-            if (defaultActions[i].equals("reboot")) {
+
+        String[] actionsArray;
+        String actions = Settings.Global.getStringForUser(context.getContentResolver(),
+                Settings.Global.POWER_MENU_ACTIONS, UserHandle.USER_CURRENT);
+        if (actions == null) {
+            actionsArray = context.getResources().getStringArray(
+                    com.android.internal.R.array.config_globalActionsList);
+        } else {
+            actionsArray = actions.split("\\|");
+        }
+
+        for (int i = 0; i < actionsArray.length; i++) {
+            if (actionsArray[i].equals("reboot")) {
                 showRebootOption = true;
                 break;
             }
@@ -280,23 +289,21 @@ public final class ShutdownThread extends Thread {
             sIsStarted = true;
         }
 
-        //acquire audio focus to make the other apps to stop playing muisc
-        mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.requestAudioFocus(null,
-                AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-
-        if (!checkAnimationFileExist()) {
-            // throw up an indeterminate system dialog to indicate radio is
-            // shutting down.
-            ProgressDialog pd = new ProgressDialog(context);
+        // throw up an indeterminate system dialog to indicate radio is
+        // shutting down.
+        ProgressDialog pd = new ProgressDialog(context);
+        if (mReboot) {
+            pd.setTitle(context.getText(com.android.internal.R.string.reboot_title));
+            pd.setMessage(context.getText(com.android.internal.R.string.reboot_progress));
+        } else {
             pd.setTitle(context.getText(com.android.internal.R.string.power_off));
             pd.setMessage(context.getText(com.android.internal.R.string.shutdown_progress));
-            pd.setIndeterminate(true);
-            pd.setCancelable(false);
-            pd.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-
-            pd.show();
         }
+        pd.setIndeterminate(true);
+        pd.setCancelable(false);
+        pd.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+
+        pd.show();
 
         sInstance.mContext = context;
         sInstance.mPowerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
