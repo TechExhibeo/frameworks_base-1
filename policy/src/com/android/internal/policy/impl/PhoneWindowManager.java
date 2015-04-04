@@ -2924,6 +2924,22 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return 0;
     }
 
+    private boolean unpinActivity(boolean checkOnly) {
+        if (!hasNavigationBar()) {
+            try {
+                if (ActivityManagerNative.getDefault().isInLockTaskMode()) {
+                    if (!checkOnly) {
+                        ActivityManagerNative.getDefault().stopLockTaskModeOnCurrent();
+                    }
+                    return true;
+                }
+            } catch (RemoteException e) {
+                // ignored
+            }
+        }
+        return false;
+    }
+
     /** {@inheritDoc} */
     @Override
     public KeyEvent dispatchUnhandledKey(WindowState win, KeyEvent event, int policyFlags) {
