@@ -122,4 +122,8 @@
     <!-- Notify user that they are in Lock-to-app (for devices without navbar) -->
     <string name="lock_to_app_toast_no_navbar">To unpin this screen, touch and hold the Back button.</string>
 
+    <!-- Flashlight notification -->
+    <string name="notification_flashlight_on_title">Flashlight is on</string>
+    <string name="notification_flashlight_on_summary">Tap to turn off</string>
+
 </resources>
