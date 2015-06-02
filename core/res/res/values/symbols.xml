@@ -2304,8 +2304,4 @@
   <java-symbol type="integer" name="config_LTE_RSRP_threshold_type" />
 
   <java-symbol type="bool" name="config_wifiApFirmwareReload" />
-
-  <!-- Gesture Sensor -->
-  <java-symbol type="bool" name="config_enableGestureService" />
-
 </resources>
