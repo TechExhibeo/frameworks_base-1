@@ -1263,6 +1263,7 @@ public final class Settings {
             // these were originally in system but migrated to secure in the past,
             // so are duplicated in the Secure.* namespace
             MOVED_TO_SECURE_THEN_GLOBAL.add(Global.ADB_ENABLED);
+            MOVED_TO_GLOBAL.add(Settings.Global.ADB_NOTIFY);
             MOVED_TO_SECURE_THEN_GLOBAL.add(Global.BLUETOOTH_ON);
             MOVED_TO_SECURE_THEN_GLOBAL.add(Global.DATA_ROAMING);
             MOVED_TO_SECURE_THEN_GLOBAL.add(Global.DEVICE_PROVISIONED);
@@ -3921,9 +3922,17 @@ public final class Settings {
         @Deprecated
         public static final String ADB_ENABLED = Global.ADB_ENABLED;
 
-        /**
-         * The TCP/IP port to run ADB on, or -1 for USB
-         * @hide
+       /**
+        * Whether to display the ADB notification.
+        * @deprecated Use {@link android.provider.Settings.Global#ADB_NOTIFY} instead
+        * @hide
+        */
+        @Deprecated
+        public static final String ADB_NOTIFY = "adb_notify";
+
+       /**
+        @Deprecated * The TCP/IP port to run ADB on, or -1 for USB
+        public static final String ADB_NOTIFY = "adb_notify"; * @hide
          */
         public static final String ADB_PORT = "adb_port";
 
@@ -5773,6 +5782,12 @@ public final class Settings {
          * Whether ADB is enabled.
          */
         public static final String ADB_ENABLED = "adb_enabled";
+
+        /**
+         * Whether to display the ADB notification.
+         * @hide
+         */
+        public static final String ADB_NOTIFY = "adb_notify";
 
         /**
          * String to contain power menu actions
