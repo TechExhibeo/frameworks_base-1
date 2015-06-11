@@ -108,6 +108,10 @@
     <!-- Needed for WallpaperManager.clear in ImageWallpaper.updateWallpaperLocked -->
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
+    <!-- Reboot -->
+    <uses-permission android:name="android.permission.REBOOT" />
+    <uses-permission android:name="android.permission.RECOVERY" />
+
     <!-- Recents -->
     <uses-permission android:name="android.permission.BIND_APPWIDGET" />
 
@@ -118,6 +122,10 @@
 
     <!-- Screen Capturing -->
     <uses-permission android:name="android.permission.MANAGE_MEDIA_PROJECTION" />
+
+    <!-- Visualizer tile -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".SystemUIApplication"

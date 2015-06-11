@@ -74,7 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // database gets upgraded properly. At a minimum, please confirm that 'upgradeVersion'
     // is properly propagated through your change.  Not doing so will result in a loss of user
     // settings.
-    private static final int DATABASE_VERSION = 116;
+
+    private static final int DATABASE_VERSION = 115;
 
     private static final String HEADSET = "_headset";
     private static final String SPEAKER = "_speaker";
@@ -1838,18 +1839,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             upgradeVersion = 113;
         }
 
-        // From here on out, we can assume the user is coming from CM and will have these rows
-        if (upgradeVersion < 115) {
+        /************* The following are CM-12.0 changes ************/
+
+        if (upgradeVersion < 114) {
+            String[] qsTiles = new String[] {
+                    Settings.Secure.QS_TILES,
+                    Settings.Secure.QS_USE_MAIN_TILES
+            };
+
             moveSettingsToNewTable(db, TABLE_SYSTEM, TABLE_SECURE,
-                    new String[] { Settings.Secure.STATS_COLLECTION }, true);
+                    qsTiles, true);
+            upgradeVersion = 114;
+        }
+
+        if (upgradeVersion < 115) {
+            String[] settingsToMove = new String[] {
+                    Settings.Secure.QS_SHOW_BRIGHTNESS_SLIDER,
+            };
+
+            moveSettingsToNewTable(db, TABLE_SYSTEM, TABLE_SECURE,
+                    settingsToMove, true);
             upgradeVersion = 115;
         }
 
-        if (upgradeVersion < 116) {
-            moveSettingsToNewTable(db, TABLE_SYSTEM, TABLE_SECURE,
-                    new String[] { Settings.Secure.VOLUME_LINK_NOTIFICATION }, true);
-            upgradeVersion = 116;
-        }
 
         // *** Remember to update DATABASE_VERSION above!
 
